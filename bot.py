@@ -1,5 +1,8 @@
 import telebot
 import config
+import schedule
+import time
+from threading import Thread
 
 bot = telebot.TeleBot(config.token)
 
@@ -9,6 +12,14 @@ from handler_data import handler, prepare_mes
 
 list_data = []
 
+def schedule_checker():
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+def some_func():
+    print(time.time())
 
 @bot.message_handler(commands=["check"])
 def repeat_all_messages(message):
@@ -32,4 +43,6 @@ def repeat_all_messages(message):
 
 
 if __name__ == '__main__':
+    schedule.every(5).seconds.do(some_func)
+    Thread(target=schedule_checker).start()
     bot.infinity_polling()
