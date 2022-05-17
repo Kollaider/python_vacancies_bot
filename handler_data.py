@@ -1,23 +1,30 @@
+def handler(lst, data):
+    print(lst)
+    data_out = []
 
-def handler(lst):
+    for i in data:
+        if i not in lst:
+            data_out.append(i)
+            lst.append(i)
 
-    lst_ids = []
-    lst_out = []
+    return lst, data_out
 
-    for i in lst:
-        lst_ids.append(i['id'])
-
-    lst_out.append(lst[0: 2])
-
-    return lst_out
 
 def prepare_mes(data):
     data_dict = {}
-    for i, v in enumerate(data[0]):
+    for i, v in enumerate(data):
         lst_data = []
-        lst_data.append(data[0][i]['name'])
-        lst_data.append(data[0][i]['url'])
-        lst_data.append(data[0][i]['published_at'])
+        lst_data.append(v['name'])
+
+        url = f"https://hh.ru/vacancy/{v['id']}"
+        lst_data.append(url)
+
+        time = v['published_at']
+        time = time[: 10] + ' ' + time[11: 16]
+        lst_data.append(time)
+
+        if v['salary']:
+            lst_data.append(f"От {v['salary']['from']} до {v['salary']['from']} {v['salary']['currency']}")
 
         data_dict[i] = lst_data
 

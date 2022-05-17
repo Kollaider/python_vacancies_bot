@@ -24,7 +24,7 @@ def get_page(page=0):
         'area': 16,  # Поиск ощуществляется по вакансиям города Минск
         'page': page,  # Индекс страницы поиска на HH
         'per_page': 100,  # Кол-во вакансий на 1 странице
-        'period': 3
+        'period': 1
     }
 
     req = requests.get('https://api.hh.ru/vacancies', params)  # Посылаем запрос к API
