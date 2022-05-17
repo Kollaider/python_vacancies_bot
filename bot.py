@@ -10,7 +10,7 @@ from handler_data import handler, prepare_mes
 list_data = []
 
 
-@bot.message_handler(content_types=["text"])
+@bot.message_handler(commands=["check"])
 def repeat_all_messages(message):
     first_message = True
     global list_data
@@ -22,7 +22,11 @@ def repeat_all_messages(message):
     if not data:
         bot.send_message(message.chat.id, 'Нет новых данных')
 
-    if not first_message:
+    if first_message:
+        last_data_id = len(messages_data) - 1
+        mes = f'Последняя вакансия\n\n'
+        bot.send_message(message.chat.id, mes + '\n'.join(messages_data[last_data_id]))
+    else:
         for i, v in messages_data.items():
             bot.send_message(message.chat.id, '\n'.join(v))
 
