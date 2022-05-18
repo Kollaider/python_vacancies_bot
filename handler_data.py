@@ -1,12 +1,9 @@
 def handler(lst, data):
-    print(lst)
     data_out = []
-
     for i in data:
         if i not in lst:
             data_out.append(i)
             lst.append(i)
-
     return lst, data_out
 
 
