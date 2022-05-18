@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 from threading import Thread
 
 import schedule
@@ -15,11 +16,15 @@ chat_id = 0
 
 
 def do_parse():
-    bot.send_message(chat_id, str(time.time()))
+    now = datetime.now()
+    date_time = now.strftime("%m.%d.%Y %H:%M:%S")
+
     global list_data
     parsed_data = parse_data()
     list_data, data = handler(list_data, parsed_data)
     messages_data = prepare_mes(data)
+    print(f'[*] Запрос в {date_time}, новых вакансий - {len(data)}')
+
     for i, v in messages_data.items():
         bot.send_message(chat_id, '\n'.join(v))
 
@@ -62,7 +67,7 @@ def run_bot():
 
 
 def run_schedulers():
-    schedule.every(10).minutes.do(do_parse)
+    schedule.every(1).hours.do(do_parse)
     while True:
         schedule.run_pending()
         time.sleep(1)
