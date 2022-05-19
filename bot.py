@@ -1,3 +1,4 @@
+import os
 import time
 from datetime import datetime
 from threading import Thread
@@ -10,7 +11,10 @@ import config
 from handler_data import handler, prepare_mes
 from hh_parsing import parse_data
 
-bot = telebot.TeleBot(config.token)
+from boto.s3.connection import S3Connection
+token = S3Connection(os.environ['token'])
+
+bot = telebot.TeleBot(token)
 list_data = []
 chat_id = 0
 
