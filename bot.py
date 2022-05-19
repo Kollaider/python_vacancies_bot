@@ -7,14 +7,12 @@ import schedule
 import telebot
 from telebot import types
 
-import config
 from handler_data import handler, prepare_mes
 from hh_parsing import parse_data
 
-from boto.s3.connection import S3Connection
-token = S3Connection(os.environ['token'])
+TOKEN = os.environ['token']
 
-bot = telebot.TeleBot(token)
+bot = telebot.TeleBot(TOKEN)
 list_data = []
 chat_id = 0
 
