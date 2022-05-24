@@ -5,11 +5,14 @@ from threading import Thread
 
 import schedule
 import telebot
+from envparse import env
 from telebot import types
 
 from handler_data import handler, prepare_mes
 from hh_parsing import parse_data
 
+# for local launching
+# TOKEN = env('token')
 TOKEN = os.environ['token']
 
 bot = telebot.TeleBot(TOKEN)
